@@ -9,7 +9,7 @@ import bookingRoutes from './routes/bookings.js';
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = Number(process.env.PORT) || 10000;
 
 // Middleware
 app.use(cors({
@@ -18,25 +18,25 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// Health check endpoint
-app.get('/api', (req, res) => {
+// Health check
+app.get('/api', (_req, res) => {
   res.json({ message: 'Event Booking API is running' });
 });
-
-// Connect to MongoDB
-connectDB();
 
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/bookings', bookingRoutes);
 
-// For Vercel serverless function
-export default app;
+// Start DB + Server
+async function start() {
+  await connectDB();
 
-// For local development
-if (process.env.NODE_ENV !== 'production') {
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`🚀 Server running on port ${PORT}`);
   });
 }
+
+start();
+
+export default app;
