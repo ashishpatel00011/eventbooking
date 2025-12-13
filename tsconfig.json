@@ -9,11 +9,10 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "outDir": "./dist",
-    "rootDir": "./",
-    "types": ["node"],
-    "allowSyntheticDefaultImports": true
+    "outDir": "dist",
+    "rootDir": ".",
+    "types": ["node"]
   },
-  "include": ["**/*.ts"],
+  "include": ["index.ts", "backend/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }
